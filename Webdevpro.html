@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionHub - Online Clothing Store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        
+        nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 2rem; }
+        nav a { text-decoration: none; color: #333; font-weight: bold; padding: 0.5rem 1rem; border-radius: 25px; transition: all 0.3s; }
+        nav a:hover { background: #ff6b6b; color: white; transform: translateY(-2px); }
+        
+        .hero { background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-top: 60px; }
+        .hero h1 { font-size: 4rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.5rem; }
+        
+        .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .product { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .product:hover { transform: translateY(-10px); }
+        .product img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 1.5rem; }
+        .product h3 { margin-bottom: 0.5rem; color: #333; }
+        .price { font-size: 1.5rem; color: #ff6b6b; font-weight: bold; }
+        .add-cart { background: #4ecdc4; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; cursor: pointer; font-size: 1rem; margin-top: 1rem; width: 100%; transition: background 0.3s; }
+        .add-cart:hover { background: #45b7aa; }
+        
+        .categories { display: none; }
+        .categories.show { display: block; }
+        
+        .home-featured { background: white; }
+        footer { background: #333; color: white; text-align: center; padding: 2rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li><a href="#" onclick="showPage('categories')">Categories</a></li>
+            <li><a href="#">Cart (0)</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div>
+                <h1>Welcome to FashionHub</h1>
+                <p>Discover the latest trends in clothing</p>
+            </div>
+        </section>
+        
+        <section class="section home-featured">
+            <h2 style="text-align:center; margin-bottom:2rem; color:#333;">Featured Products</h2>
+            <div class="products">
+                <div class="product">
+                    <img src="https://t4.ftcdn.net/jpg/02/52/37/29/360_F_252372949_wF016jZCxmO9eClldKatxjQSNlnTHEM3.jpg" alt="Red Dress">
+                    <div class="product-info">
+                        <h3>Red Summer Dress</h3>
+                        <div class="price">$49</div>
+                        <button class="add-cart" onclick="addToCart('Red Summer Dress')">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="https://images.pexels.com/photos/603022/pexels-photo-603022.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Blue Jeans">
+                    <div class="product-info">
+                        <h3>Blue Slim Jeans</h3>
+                        <div class="price">$69</div>
+                        <button class="add-cart" onclick="addToCart('Blue Slim Jeans')">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/073/069/659/small/soft-white-shirt-on-bed-with-natural-light-and-textured-fabrics-free-photo.jpg" alt="White Shirt">
+                    <div class="product-info">
+                        <h3>White Cotton Shirt</h3>
+                        <div class="price">$39</div>
+                        <button class="add-cart" onclick="addToCart('White Cotton Shirt')">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product">
+                    <img src="https://images.unsplash.com/photo-1596744271582-1d87e9aae223?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGUlMjBzbmVha2VyfGVufDB8fDB8fHww" alt="Sneakers">
+                    <div class="product-info">
+                        <h3>White Sneakers</h3>
+                        <div class="price">$89</div>
+                        <button class="add-cart" onclick="addToCart('White Sneakers')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Categories Page -->
+    <div id="categories" class="page">
+        <section class="section">
+            <h2 style="text-align:center; margin-bottom:3rem; color:#333;">Shop by Category</h2>
+            
+            <!-- Traditional Ethnic -->
+            <h3 style="margin:2rem 0 1rem 0; color:#ff6b6b;">Traditional Ethnic</h3>
+            <div class="products">
+                <div class="product">
+                    <img src="https://img.freepik.com/premium-photo/elegant-fabric-with-rich-colors-patterns_1355444-19063.jpg?semt=ais_hybrid&w=740&q=80" alt="Saree">
+                    <div class="product-info"><h3>Silk Saree</h3><div class="price">$150</div><button class="add-cart" onclick="addToCart('Silk Saree')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://m.media-amazon.com/images/I/71bk49PSkWL._AC_UY1100_.jpg" alt="Kurta">
+                    <div class="product-info"><h3>Embroidered Kurta</h3><div class="price">$80</div><button class="add-cart" onclick="addToCart('Embroidered Kurta')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://t4.ftcdn.net/jpg/13/64/50/15/360_F_1364501553_vibiUQwH3avDgKIT3HCnh3t8pZt52D7M.jpg" alt="Punjabi">
+                    <div class="product-info"><h3>Punjabi Suit</h3><div class="price">$120</div><button class="add-cart" onclick="addToCart('Punjabi Suit')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://t3.ftcdn.net/jpg/06/69/93/30/360_F_669933089_YfPfWH0Rs2fwCQEYiRJlX0CnlcoQltOx.jpg" alt="Lehenga">
+                    <div class="product-info"><h3>Bridal Lehenga</h3><div class="price">$300</div><button class="add-cart" onclick="addToCart('Bridal Lehenga')">Add to Cart</button></div>
+                </div>
+            </div>
+
+            <!-- Western Wear -->
+            <h3 style="margin:2rem 0 1rem 0; color:#4ecdc4;">Western Wear</h3>
+            <div class="products">
+                <div class="product">
+                    <img src="https://img.freepik.com/free-photo/young-handsome-businessman-black-shirt-black-suit_158595-4799.jpg?semt=ais_hybrid&w=740&q=80" alt="Blazer">
+                    <div class="product-info"><h3>Black Blazer</h3><div class="price">$90</div><button class="add-cart" onclick="addToCart('Black Blazer')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://t4.ftcdn.net/jpg/15/62/36/01/360_F_1562360199_XqtSP9BXBwuNg5SvUAEXt9b95n9gqk6D.jpg" alt="Skirt">
+                    <div class="product-info"><h3>Leather Skirt</h3><div class="price">$65</div><button class="add-cart" onclick="addToCart('Leather Skirt')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://images.unsplash.com/photo-1537465978529-d23b17165b3b?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZGVuaW0lMjBqYWNrZXR8ZW58MHx8MHx8fDA%3D" alt="Jacket">
+                    <div class="product-info"><h3>Denim Jacket</h3><div class="price">$75</div><button class="add-cart" onclick="addToCart('Denim Jacket')">Add to Cart</button></div>
+                </div>
+            </div>
+
+            <!-- Casual Wear -->
+            <h3 style="margin:2rem 0 1rem 0; color:#45b7aa;">Casual Wear</h3>
+            <div class="products">
+                <div class="product">
+                    <img src="https://img.freepik.com/free-psd/man-white-t-shirt-sitting-cafe_23-2151971621.jpg?semt=ais_hybrid&w=740&q=80" alt="Tshirt">
+                    <div class="product-info"><h3>Graphic T-Shirt</h3><div class="price">$25</div><button class="add-cart" onclick="addToCart('Graphic T-Shirt')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://www.maincharacterindia.com/cdn/shop/files/000_2x_898c4271-4e9a-4124-b320-6baa5039f74c.jpg?v=1762346748&width=1946" alt="Hoodie">
+                    <div class="product-info"><h3>Oversize Hoodie</h3><div class="price">$55</div><button class="add-cart" onclick="addToCart('Oversize Hoodie')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://m.media-amazon.com/images/I/61xgigTMn1L._AC_UY1100_.jpg" alt="Track Pants">
+                    <div class="product-info"><h3>Track Pants</h3><div class="price">$45</div><button class="add-cart" onclick="addToCart('Track Pants')">Add to Cart</button></div>
+                </div>
+                <div class="product">
+                    <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c25lYWtlcnN8ZW58MHx8MHx8fDA%3D" alt="Sneakers">
+                    <div class="product-info"><h3>Sports Sneakers</h3><div class="price">$85</div><button class="add-cart" onclick="addToCart('Sports Sneakers')">Add to Cart</button></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 FashionHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
